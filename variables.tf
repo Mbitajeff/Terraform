@@ -1,13 +1,7 @@
-variable "region" {
-  description = "AWS region to deploy in"
-  type        = string
-  default     = "us-east-1"
-}
-
+# EC2 Instance settings
 variable "ami_id" {
-  description = "AMI ID for EC2 instance (Amazon Linux 2 recommended)"
+  description = "AMI ID for the EC2 instance"
   type        = string
-  default     = "ami-0c02fb55956c7d316"  # Amazon Linux 2 in us-east-1
 }
 
 variable "instance_type" {
@@ -17,7 +11,31 @@ variable "instance_type" {
 }
 
 variable "server_port" {
-  description = "Port the web server will listen on"
+  description = "Port for the web server"
   type        = number
-  default     = 80
+  default     = 8080
+}
+
+# Networking
+variable "vpc_id" {
+  description = "VPC ID"
+  type        = string
+}
+
+variable "subnet_ids" {
+  description = "List of Subnet IDs for ALB and ASG"
+  type        = list(string)
+}
+
+# Auto Scaling
+variable "asg_min_size" {
+  description = "Minimum number of instances in ASG"
+  type        = number
+  default     = 2
+}
+
+variable "asg_max_size" {
+  description = "Maximum number of instances in ASG"
+  type        = number
+  default     = 5
 }
