@@ -1,0 +1,9 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Terraform provider plugins
+.terraform/
+
+# Any downloaded zips
+*.zip
