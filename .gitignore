@@ -7,3 +7,6 @@
 
 # Any downloaded zips
 *.zip
+
+# AWS CLI documentation (contains example credentials)
+aws/dist/
