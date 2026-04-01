@@ -39,3 +39,9 @@ variable "server_port" {
   type        = number
   default     = 8080
 }
+
+variable "enable_https" {
+  description = "Whether to enable HTTPS listener on port 443"
+  type        = bool
+  default     = false
+}
