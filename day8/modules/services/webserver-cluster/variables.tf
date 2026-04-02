@@ -45,3 +45,9 @@ variable "enable_https" {
   type        = bool
   default     = false
 }
+
+variable "enable_autoscaling" {
+  description = "Whether to enable autoscaling policies for the cluster"
+  type        = bool
+  default     = true
+}

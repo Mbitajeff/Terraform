@@ -141,3 +141,24 @@ resource "aws_autoscaling_group" "main" {
     propagate_at_launch = true
   }
 }
+
+# Autoscaling Policies — optional via enable_autoscaling
+resource "aws_autoscaling_policy" "scale_out" {
+  count = var.enable_autoscaling ? 1 : 0
+
+  name                   = "${var.cluster_name}-scale-out"
+  autoscaling_group_name = aws_autoscaling_group.main.name
+  adjustment_type        = "ChangeInCapacity"
+  scaling_adjustment     = 1
+  cooldown               = 300
+}
+
+resource "aws_autoscaling_policy" "scale_in" {
+  count = var.enable_autoscaling ? 1 : 0
+
+  name                   = "${var.cluster_name}-scale-in"
+  autoscaling_group_name = aws_autoscaling_group.main.name
+  adjustment_type        = "ChangeInCapacity"
+  scaling_adjustment     = -1
+  cooldown               = 300
+}

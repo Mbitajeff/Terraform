@@ -75,3 +75,26 @@ output "instance_type" {
 output "admin_user_arn" {
   value = var.enable_admin_user ? aws_iam_user.admin[0].arn : "admin user disabled"
 }
+
+# -----------------------------------------------
+# PART 6: Refactored webserver module with conditionals
+# -----------------------------------------------
+variable "enable_autoscaling" {
+  description = "Enable autoscaling policies"
+  type        = bool
+  default     = true
+}
+
+module "webserver_cluster" {
+  source = "../day8/modules/services/webserver-cluster"
+
+  cluster_name       = "day10-webserver"
+  vpc_id             = "vpc-050d7a0017ba4cccc"
+  subnet_ids         = ["subnet-085ee38907f4c6d84", "subnet-0e7192648a1091460"]
+  ami_id             = "ami-05024c2628f651b80"
+  instance_type      = local.instance_type
+  min_size           = 2
+  max_size           = 4
+  server_port        = 8080
+  enable_autoscaling = var.enable_autoscaling
+}
